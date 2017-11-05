@@ -10,10 +10,15 @@ namespace AC_project
         private static int _numberOfExperts;
         private static int _numberOfFeatures;
         private static int _numberOfProjects;
+        private static List<Project> _listProjects;
+        private static List<Expert> _listExpers;
+        private static List<Edge> _listEdges;
+
 
         static void Main(string[] args)
         {
             ReadFile("ac_input.txt");
+            BuildGraph();
         }
 
         private static void ReadFile(string pathToFile)
@@ -26,13 +31,13 @@ namespace AC_project
                 _numberOfExperts = int.Parse(lines[1]);
                 _numberOfFeatures = int.Parse(lines[2]);
 
-                List<Project> listProjects = File.ReadLines(pathToFile)
+                _listProjects = File.ReadLines(pathToFile)
                                        .Skip(1)
                                        .Take(_numberOfProjects)
                                        .Select(v => new Project(v))
                                        .ToList();
 
-                List<Expert> listExpers = File.ReadLines(pathToFile)
+                _listExpers = File.ReadLines(pathToFile)
                                        .Skip(_numberOfProjects + 1)
                                        .Take(_numberOfExperts)
                                        .Select(v => new Expert(v))
@@ -44,6 +49,20 @@ namespace AC_project
                 Console.WriteLine(e.Message);
             }
         }
+
+        private static void BuildGraph()
+        {
+            for (int i = 0; i < _numberOfFeatures; i++)
+            {
+                foreach(var expert in _listExpers)
+                {
+                    foreach (var project in _listProjects)
+                    {
+                        expert
+                    }
+                }
+            }
+        } 
 
     }
 }

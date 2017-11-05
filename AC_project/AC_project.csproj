@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Edge.cs" />
     <Compile Include="Expert.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Project.cs" />

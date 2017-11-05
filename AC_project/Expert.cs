@@ -23,5 +23,10 @@ namespace AC_project
             Console.WriteLine();
         }
 
+        public bool HasFeature()
+        {
+
+        }
+
     }
 }
