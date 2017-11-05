@@ -8,7 +8,21 @@ namespace AC_project
 {
     public class Expert
     {
+        private int _index;
         private int[] _features;
+
+        public int Index
+        {
+            get
+            {
+                return _index;
+            }
+
+            set
+            {
+                _index = value;
+            }
+        }
 
         public Expert(string readLine)
         {
@@ -25,7 +39,14 @@ namespace AC_project
 
         public bool HasFeature(int featureIndex)
         {
-            //_features[featureIndex];
+            if(_features[featureIndex] == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }
