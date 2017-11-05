@@ -75,12 +75,12 @@ namespace AC_project
         {
             if (!_vertices.Contains(from))
             {
-                throw new InvalidOperationException(CoreStrings.GraphDoesNotContainVertex(from));
+                throw new InvalidOperationException();
             }
 
             if (!_vertices.Contains(to))
             {
-                throw new InvalidOperationException(CoreStrings.GraphDoesNotContainVertex(to));
+                throw new InvalidOperationException();
             }
 
             Dictionary<TVertex, List<TEdge>> successorSet;
@@ -240,9 +240,7 @@ namespace AC_project
                         // Throw an exception
                         if (formatCycle == null)
                         {
-                            throw new InvalidOperationException(
-                                CoreStrings.CircularDependency(
-                                    cycle.Select(ToString).Join(" -> ")));
+                            throw new InvalidOperationException();
                         }
                         // Build the cycle message data
                         currentCycleVertex = cycle.First();
@@ -253,9 +251,7 @@ namespace AC_project
                             cycleData.Add(Tuple.Create(currentCycleVertex, vertex, GetEdges(currentCycleVertex, vertex)));
                             currentCycleVertex = vertex;
                         }
-                        throw new InvalidOperationException(
-                            CoreStrings.CircularDependency(
-                                formatCycle(cycleData)));
+                        throw new InvalidOperationException();
                     }
                 }
             }
@@ -392,9 +388,7 @@ namespace AC_project
                 // Throw an exception
                 if (formatCycle == null)
                 {
-                    throw new InvalidOperationException(
-                        CoreStrings.CircularDependency(
-                            cycle.Select(ToString).Join(" -> ")));
+                    throw new InvalidOperationException();
                 }
                 // Build the cycle message data
                 currentCycleVertex = cycle.First();
@@ -405,9 +399,7 @@ namespace AC_project
                     cycleData.Add(Tuple.Create(currentCycleVertex, vertex, GetEdges(currentCycleVertex, vertex)));
                     currentCycleVertex = vertex;
                 }
-                throw new InvalidOperationException(
-                    CoreStrings.CircularDependency(
-                        formatCycle(cycleData)));
+                throw new InvalidOperationException();
             }
 
             return result;
