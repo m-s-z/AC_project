@@ -7,22 +7,36 @@ namespace AC_project
 {
     class Program
     {
+        private static int _numberOfExperts;
+        private static int _numberOfFeatures;
+        private static int _numberOfProjects;
+
         static void Main(string[] args)
         {
-            List<DailyValues> values = File.ReadAllLines("ac_input.txt")
-                                           .Skip(1)
-                                           .Select(v => DailyValues.FromCsv(v))
-                                           .ToList();
+            ReadFile("ac_input.txt");
+        }
 
+        private static void ReadFile(string pathToFile)
+        {
             try
-            {   // Open the text file using a stream reader.
-                using (StreamReader sr = new StreamReader("ac_input.txt"))
-                {
-                    // Read the stream to a string, and write the string to the console.
-                    string line = sr.ReadLine();
+            {
+                string line = File.ReadLines(pathToFile).First();
+                string[] lines = line.Split(',');
+                _numberOfProjects = int.Parse(lines[0]);
+                _numberOfExperts = int.Parse(lines[1]);
+                _numberOfFeatures = int.Parse(lines[2]);
 
-                    Console.WriteLine(line);
-                }
+                List<Project> listProjects = File.ReadLines(pathToFile)
+                                       .Skip(1)
+                                       .Take(_numberOfProjects)
+                                       .Select(v => new Project(v))
+                                       .ToList();
+
+                List<Expert> listExpers = File.ReadLines(pathToFile)
+                                       .Skip(_numberOfProjects + 1)
+                                       .Take(_numberOfExperts)
+                                       .Select(v => new Expert(v))
+                                       .ToList();
             }
             catch (Exception e)
             {
@@ -31,23 +45,5 @@ namespace AC_project
             }
         }
 
-    }
-
-    class DailyValues
-    {
-        decimal Open;
-        decimal High;
-        decimal Low;
-
-        public static DailyValues FromCsv(string csvLine)
-        {
-            string[] values = csvLine.Split(',');
-            DailyValues dailyValues = new DailyValues();
-            dailyValues.Open = Convert.ToDecimal(values[0]);
-            dailyValues.High = Convert.ToDecimal(values[1]);
-            dailyValues.Low = Convert.ToDecimal(values[2]);
-            Console.WriteLine("Open {0}, High {1}, Low {2}", dailyValues.Open, dailyValues.High, dailyValues.Low);
-            return dailyValues;
-        }
     }
 }

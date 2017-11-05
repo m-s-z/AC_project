@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace AC_project
 {
-    public class Expert
+    public class Project
     {
         private int[] _features;
 
-        public Expert(string readLine)
+        public Project(string readLine)
         {
             string[] values = readLine.Split(',');
             _features = new int[values.Count()];
-            Console.Write("Expert:");
+            Console.Write("Project:");
             for (int i = 0; i < values.Count(); i++)
             {
                 _features[i] = int.Parse(values[i]);
@@ -22,6 +22,5 @@ namespace AC_project
             }
             Console.WriteLine();
         }
-
     }
 }
