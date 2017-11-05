@@ -9,7 +9,6 @@ namespace AC_project
     {
         static void Main(string[] args)
         {
-            //string[] values = File.ReadLines("ac_input.txt");
             List<DailyValues> values = File.ReadAllLines("ac_input.txt")
                                            .Skip(1)
                                            .Select(v => DailyValues.FromCsv(v))
