@@ -19,11 +19,13 @@ namespace AC_project
         /// <summary>
         /// Stack of indices of projects from the easiest to finish to the hardest one
         /// </summary>
-        private Stack<int> _stackOfProjectsDifficulty;
-        private List<Tuple<int, int>> _listOfFeaturesPopularity;
-        private int[] _arrayOfFeaturePopularity;
-        private double[] _arrayOfFeatureDifficulty;
-        private int _sumOfFeaturesExpertsProvide;
+        private Stack<int> _stackOfProjectsDifficulty; // a.k.a projects_priority
+
+        private int[] _featureSupplies; // a.k.a "Vp"
+        private int _featuresSupplySum; // sum of all _featureSupplies elements - a.k.a "supply_sum"
+
+        // Temps?
+        private List<Tuple<int, int>> _listOfFeaturesPopularity; // i.e. "Vp" after indexing it and sorting by popularity
 
         public ProblemSolver(Problem problem)
         {
@@ -43,26 +45,26 @@ namespace AC_project
         {
             _listEdges = new List<Edge>();
             _listOfFeaturesPopularity = new List<Tuple<int, int>>();
-            _arrayOfFeaturePopularity = new int[_problem.numberOfFeatures];
-            for (int i = 0; i < _problem.numberOfFeatures; i++)
+            _featureSupplies = new int[_problem.numberOfFeatures];
+            for (int f = 0; f < _problem.numberOfFeatures; f++)
             {
-                for (int j = 0; j < _problem.listExpers.Count(); j++)
+                for (int e = 0; e < _problem.listExpers.Count(); e++)
                 {
-                    if (_problem.listExpers[j].HasFeature(i))
+                    if (_problem.listExpers[e].HasFeature(f))
                     {
-                        _arrayOfFeaturePopularity[i]++;
-                        _sumOfFeaturesExpertsProvide++;
-                        for (int k = 0; k < _problem.listProjects.Count(); k++)
+                        _featureSupplies[f]++;
+                        _featuresSupplySum++;
+                        for (int p = 0; p < _problem.listProjects.Count(); p++)
                         {
-                            if (_problem.listProjects[k].HasFeature(i))
+                            if (_problem.listProjects[p].HasFeature(f))
                             {
-                                _listEdges.Add(new Edge(k, j, i));
+                                _listEdges.Add(new Edge(p, e, f));
                                 Console.WriteLine(_listEdges.Last().EdgeDescription());
                             }
                         }
                     }
                 }
-                _listOfFeaturesPopularity.Add(new Tuple<int, int>(i, _arrayOfFeaturePopularity[i]));
+                _listOfFeaturesPopularity.Add(new Tuple<int, int>(f, _featureSupplies[f]));
             }
 
             //foreach(var p in _listOfFeaturesPopularity)
@@ -75,7 +77,7 @@ namespace AC_project
         {
             _listOfFeaturesPopularity = _listOfFeaturesPopularity.OrderByDescending(i => i.Item2).ToList();
             _stackOfFeaturesByPopularity = new Stack<int>();
-            Console.WriteLine("Feature podaż {0}", _sumOfFeaturesExpertsProvide);
+            Console.WriteLine("Feature supply {0}", _featuresSupplySum);
             foreach (var p in _listOfFeaturesPopularity)
             {
                 Console.WriteLine("Feature {0}: {1}", p.Item1, p.Item2);
@@ -89,15 +91,15 @@ namespace AC_project
 
         private void CreateStackOfProjectsDifficulty()
         {
-            _arrayOfFeatureDifficulty = new double[_problem.numberOfFeatures];
+            double[] arrayOfFeatureDifficulty = new double[_problem.numberOfFeatures];
             for (int i = 0; i < _problem.numberOfFeatures; i++)
             {
-                _arrayOfFeatureDifficulty[i] = (double)_sumOfFeaturesExpertsProvide / _arrayOfFeaturePopularity[i];
+                arrayOfFeatureDifficulty[i] = (double)_featuresSupplySum / _featureSupplies[i];
             }
 
             foreach (var project in _problem.listProjects)
             {
-                project.CalculateDifficulty(_arrayOfFeatureDifficulty);
+                project.CalculateDifficulty(arrayOfFeatureDifficulty);
                 Console.WriteLine("Project difficulty {0}", project.Difficulty);
                 Console.WriteLine("----------------------------");
             }
@@ -112,7 +114,7 @@ namespace AC_project
 
             foreach (var feature in _stackOfFeaturesByPopularity)
             {
-                Console.WriteLine("Feature stack {0} - {1}", feature, _arrayOfFeaturePopularity[feature]);
+                Console.WriteLine("Feature stack {0} - {1}", feature, _featureSupplies[feature]);
             }
         }
     }

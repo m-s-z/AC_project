@@ -16,15 +16,8 @@ namespace AC_project
 
         public int Index
         {
-            get
-            {
-                return _index;
-            }
-
-            set
-            {
-                _index = value;
-            }
+            get { return _index; }
+            set  { _index = value; }
         }
 
         public Project(string readLine)
