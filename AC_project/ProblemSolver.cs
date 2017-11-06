@@ -17,9 +17,9 @@ namespace AC_project
         /// </summary>
         private Stack<int> _stackOfFeaturesByPopularity;
         /// <summary>
-        /// Stack of indices of projects from the easiest to finish to the hardest one
+        /// Stack of projects from the easiest to finish to the hardest one
         /// </summary>
-        private Stack<int> _stackOfProjectsDifficulty; // a.k.a projects_priority
+        private Stack<Project> _stackOfProjectsByDifficulty; // a.k.a projects_priority
 
         private int[] _featureSupplies; // a.k.a "Vp"
         private int _featuresSupplySum; // sum of all _featureSupplies elements - a.k.a "supply_sum"
@@ -36,10 +36,19 @@ namespace AC_project
         {
             BuildConnections();
             Console.ReadLine();
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("Features supplies sum {0}", _featuresSupplySum);
             CreateStackOfFeaturesPopularity();
             CreateStackOfProjectsDifficulty();
-
+            foreach (var feature in _stackOfFeaturesByPopularity)
+            {
+                Console.WriteLine("Feature stack {0} - {1}", feature, _featureSupplies[feature]);
+            }
+            Console.ReadLine();
         }
+      
+        
+
 
         private void BuildConnections()
         {
@@ -77,16 +86,19 @@ namespace AC_project
         {
             _listOfFeaturesPopularity = _listOfFeaturesPopularity.OrderByDescending(i => i.Item2).ToList();
             _stackOfFeaturesByPopularity = new Stack<int>();
-            Console.WriteLine("Feature supply {0}", _featuresSupplySum);
             foreach (var p in _listOfFeaturesPopularity)
             {
                 Console.WriteLine("Feature {0}: {1}", p.Item1, p.Item2);
                 _stackOfFeaturesByPopularity.Push(p.Item1);
             }
+
+            // Temp print
+            String stack = "Stack _stackOfFeaturesByPopularity: [";
             foreach (var p in _stackOfFeaturesByPopularity)
             {
-                Console.WriteLine("Stack {0}", p);
+                stack += String.Format("{0}, ", p);
             }
+            Console.WriteLine("{0}]\n", stack);
         }
 
         private void CreateStackOfProjectsDifficulty()
@@ -105,16 +117,12 @@ namespace AC_project
             }
 
             var tempList = _problem.listProjects.OrderBy(i => i.Difficulty).ToList();
-            _stackOfProjectsDifficulty = new Stack<int>();
+            _stackOfProjectsByDifficulty = new Stack<Project>(tempList);
+
+            // Temp print
             foreach (var project in tempList)
             {
-                _stackOfProjectsDifficulty.Push(project.Index);
-                Console.WriteLine("Project stack {0} - {1}", _stackOfProjectsDifficulty.First(), _problem.listProjects[_stackOfProjectsDifficulty.First()].Difficulty);
-            }
-
-            foreach (var feature in _stackOfFeaturesByPopularity)
-            {
-                Console.WriteLine("Feature stack {0} - {1}", feature, _featureSupplies[feature]);
+                Console.WriteLine("Project stack {0} - {1}", _stackOfProjectsByDifficulty.First(), _problem.listProjects[_stackOfProjectsByDifficulty.First().Index].Difficulty);
             }
         }
     }
