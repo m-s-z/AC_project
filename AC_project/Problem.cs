@@ -51,6 +51,7 @@ namespace AC_project
             {
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
+                Console.ReadLine();
                 throw e;
             }
         }

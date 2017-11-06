@@ -12,7 +12,13 @@ namespace AC_project
 
         private List<Edge> _listEdges;
 
-        private Stack<int> _stackOfFeaturesPopularity;
+        /// <summary>
+        /// Stack of indices of features in such a way that indices of the most popular (the simplest to fill) features are at the bottom of the stack
+        /// </summary>
+        private Stack<int> _stackOfFeaturesByPopularity;
+        /// <summary>
+        /// Stack of indices of projects from the easiest to finish to the hardest one
+        /// </summary>
         private Stack<int> _stackOfProjectsDifficulty;
         private List<Tuple<int, int>> _listOfFeaturesPopularity;
         private int[] _arrayOfFeaturePopularity;
@@ -30,6 +36,7 @@ namespace AC_project
             Console.ReadLine();
             CreateStackOfFeaturesPopularity();
             CreateStackOfProjectsDifficulty();
+
         }
 
         private void BuildConnections()
@@ -67,14 +74,14 @@ namespace AC_project
         private void CreateStackOfFeaturesPopularity()
         {
             _listOfFeaturesPopularity = _listOfFeaturesPopularity.OrderByDescending(i => i.Item2).ToList();
-            _stackOfFeaturesPopularity = new Stack<int>();
+            _stackOfFeaturesByPopularity = new Stack<int>();
             Console.WriteLine("Feature podaż {0}", _sumOfFeaturesExpertsProvide);
             foreach (var p in _listOfFeaturesPopularity)
             {
                 Console.WriteLine("Feature {0}: {1}", p.Item1, p.Item2);
-                _stackOfFeaturesPopularity.Push(p.Item1);
+                _stackOfFeaturesByPopularity.Push(p.Item1);
             }
-            foreach (var p in _stackOfFeaturesPopularity)
+            foreach (var p in _stackOfFeaturesByPopularity)
             {
                 Console.WriteLine("Stack {0}", p);
             }
@@ -103,7 +110,7 @@ namespace AC_project
                 Console.WriteLine("Project stack {0} - {1}", _stackOfProjectsDifficulty.First(), _problem.listProjects[_stackOfProjectsDifficulty.First()].Difficulty);
             }
 
-            foreach (var feature in _stackOfFeaturesPopularity)
+            foreach (var feature in _stackOfFeaturesByPopularity)
             {
                 Console.WriteLine("Feature stack {0} - {1}", feature, _arrayOfFeaturePopularity[feature]);
             }

@@ -7,21 +7,16 @@ namespace AC_project
 {
     class Program
     {
-        private static Problem _problem;
-        private static List<Edge> _listEdges;
-
-        private static Stack<int> _stackOfFeaturesPopularity;
-        private static Stack<int> _stackOfProjectsDifficulty;
-        private static List<Tuple<int, int>> _listOfFeaturesPopularity;
-        private static int[] _arrayOfFeaturePopularity;
-        private static double[] _arrayOfFeatureDifficulty;
-        private static int _sumOfFeaturesExpertsProvide;
+        private static ProblemSolver _solver;
 
         static void Main(string[] args)
         {
-            Problem problem = new Problem("ac_input2.txt");
-            ProblemSolver solver = new ProblemSolver(problem);
-            solver.Solve();
+            String problemName = "problem1.txt";
+            String inputFilesPath = Directory.GetCurrentDirectory() + "..\\..\\..\\..\\input_files\\";
+            Problem problem = new Problem(inputFilesPath + problemName);
+
+            _solver = new ProblemSolver(problem);
+            _solver.Solve();
         }
     }
 }
