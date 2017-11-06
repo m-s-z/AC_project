@@ -8,7 +8,8 @@ namespace AC_project
 {
     class ProblemSolver
     {
-        Problem _problem;
+        private Problem _problem;
+        private double _methodCoefficient;
 
         private List<Edge> _listEdges;
 
@@ -27,26 +28,123 @@ namespace AC_project
         // Temps?
         private List<Tuple<int, int>> _listOfFeaturesPopularity; // i.e. "Vp" after indexing it and sorting by popularity
 
-        public ProblemSolver(Problem problem)
+        public ProblemSolver(Problem problem, double methodCoefficient)
         {
             _problem = problem;
+            _methodCoefficient = methodCoefficient;
+            // Trimming to [0, 1]
+            _methodCoefficient = _methodCoefficient < 0 ? 0 : _methodCoefficient;
+            _methodCoefficient = _methodCoefficient > 0 ? 1 : _methodCoefficient;
         }
 
         public void Solve()
         {
+            // Initialization
+
             BuildConnections();
+            Console.WriteLine("\nAny key to continue...");
             Console.ReadLine();
-            Console.WriteLine("----------------------------");
-            Console.WriteLine("Features supplies sum {0}", _featuresSupplySum);
+            Console.WriteLine("----------------------------\nFeatures supplies sum {0}", _featuresSupplySum);
             CreateStackOfFeaturesPopularity();
             CreateStackOfProjectsDifficulty();
             foreach (var feature in _stackOfFeaturesByPopularity)
             {
                 Console.WriteLine("Feature stack {0} - {1}", feature, _featureSupplies[feature]);
             }
+            Console.WriteLine("\nAny key to continue...");
+            Console.ReadLine();
+
+            // Main Loop
+
+            int numberOfFeaturesFirst = (int)((double)_stackOfFeaturesByPopularity.Count * _methodCoefficient);
+            
+            // TODO: common STOP property for both methods.
+                        
+            for (int i = 0; i < numberOfFeaturesFirst; i++)
+            {
+                int feature = _stackOfFeaturesByPopularity.Pop();
+                SolveForFeature(feature);
+            }
+
+            while(_stackOfProjectsByDifficulty.Count > 0)
+            {
+                Project project = _stackOfProjectsByDifficulty.Pop();
+                SolveForProject(project);
+            }
+
+            Console.WriteLine("\nAny key to continue...");
             Console.ReadLine();
         }
-      
+        
+
+        private bool SolveForFeature(int feature)
+        {
+            /* Based on number of edges (not sorted yet, used Fitness instead).
+             * 
+            List<Tuple<Expert, int>> viableExperts = new List<Tuple<Expert, int>>();
+            foreach (Expert expert in _problem.listExpers)
+            {
+                if (expert.HasFeature(feature))
+                {
+                    viableExperts.Add(new Tuple<Expert, int>(expert, 0));
+                }
+            } 
+            */
+
+            //* Based on Fitness.
+            //*
+            List<Expert> viableExperts = _problem.listExperts
+                .FindAll(e => e.HasFeature(feature) == true)
+                .OrderBy(e => e.Fitness)
+                .ToList();
+            Project project = _stackOfProjectsByDifficulty
+                .ToList()
+                .Find(p => p.HasFeature(feature));
+
+            if(project == null)
+            {
+                // No match.
+                return false;
+            }
+
+            // TODO: Mark 4: Assign expert<=>project, i.e.: remove Expert, alter the Project features set, remove the edge.
+
+            return true;
+        }
+
+        private bool SolveForProject(Project project)
+        {
+            int feature = -1;
+            for (int i = 0; i < project.Features.Count(); i++)
+            {
+                if(project.Features[i] > 0)
+                {
+                    feature = i;
+                    break;
+                }
+            }
+            if(feature < 0)
+            {
+                // No match.
+                return false;
+            }
+
+            List<Expert> viableExperts = _problem.listExperts
+                .FindAll(e => e.HasFeature(feature) == true)
+                .OrderBy(e => e.Fitness)
+                .ToList();
+            // Then it starts assigning experts until all places of the choosen feature in this project are filled.
+
+
+            // TODO: Mark 4: Assign expert<=>project, i.e.: remove Expert, alter the Project features set, remove the edge.
+
+            return true;
+        }
+
+        private bool Assign(Expert expert, Project project)
+        {
+            return false;
+        }
         
 
 
@@ -57,9 +155,9 @@ namespace AC_project
             _featureSupplies = new int[_problem.numberOfFeatures];
             for (int f = 0; f < _problem.numberOfFeatures; f++)
             {
-                for (int e = 0; e < _problem.listExpers.Count(); e++)
+                for (int e = 0; e < _problem.listExperts.Count(); e++)
                 {
-                    if (_problem.listExpers[e].HasFeature(f))
+                    if (_problem.listExperts[e].HasFeature(f))
                     {
                         _featureSupplies[f]++;
                         _featuresSupplySum++;

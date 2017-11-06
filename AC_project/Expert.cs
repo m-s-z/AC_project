@@ -10,6 +10,8 @@ namespace AC_project
     {
         private int _index;
         private int[] _features;
+        private double _fitness;
+        public double Fitness { get { return _fitness; } }
 
         public int Index
         {
@@ -49,5 +51,13 @@ namespace AC_project
             }
         }
 
+        public void CalculateFitness(double[] arrayOfFeatureDifficulty)
+        {
+            for (int i = 0; i < _features.Count(); i++)
+            {
+                Console.WriteLine("Fitness {0} = feature[{1}] {2} * fD {3}", _fitness, i, _features[i], arrayOfFeatureDifficulty[i]);
+                _fitness += _features[i] * arrayOfFeatureDifficulty[i];
+            }
+        }
     }
 }

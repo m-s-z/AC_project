@@ -14,7 +14,7 @@ namespace AC_project
         private List<Expert> _listExpers;
 
         public List<Project> listProjects { get { return _listProjects; } }
-        public List<Expert> listExpers { get { return _listExpers; } }
+        public List<Expert> listExperts { get { return _listExpers; } }
         public int numberOfFeatures { get { return _numberOfFeatures; } }
         public int numberOfExperts { get { return _listProjects.Count; } }
         public int numberOfProjects { get { return _listProjects.Count; } }

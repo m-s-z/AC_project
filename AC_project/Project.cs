@@ -12,6 +12,7 @@ namespace AC_project
         private int[] _features;
         private double _difficulty;
 
+        public int[] Features { get { return _features; } }
         public double Difficulty { get { return _difficulty; } }
 
         public int Index
@@ -50,7 +51,7 @@ namespace AC_project
         {
             for (int i = 0; i < _features.Count(); i++)
             {
-                Console.WriteLine("Difficult {0} = feature[{1}] {2} * fD {3}", _difficulty, i, _features[i], arrayOfFeatureDifficulty[i]);
+                Console.WriteLine("Difficulty P{0} = feature[{1}] {2} * fD {3}", _difficulty, i, _features[i], arrayOfFeatureDifficulty[i]);
                 _difficulty += _features[i] * arrayOfFeatureDifficulty[i];
             }
         }
