@@ -21,6 +21,21 @@ namespace AC_project
             set  { _index = value; }
         }
 
+        public bool IsCompleted
+        {
+            get
+            {
+                for (int i = 0; i < Features.Count(); i++)
+                {
+                    if(Features[i] > 0)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
         public Project(string readLine)
         {
             string[] values = readLine.Split(',');

@@ -11,7 +11,10 @@ namespace AC_project
 
         static void Main(string[] args)
         {
-            String problemName = "problem1.txt";
+            //String problemName = "problem1.txt";
+            String problemName = "zeros.txt";
+            //String problemName = "problem1.txt";
+            //String problemName = "problem1.txt";
             double methodCoefficient = 0;
             if (args.Count() == 2)
             {
