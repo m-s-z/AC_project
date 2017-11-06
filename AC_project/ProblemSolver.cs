@@ -8,7 +8,7 @@ namespace AC_project
 {
     class ProblemSolver
     {
-        private int S = 0;
+        private Solution _solution = new Solution();
         private Problem _problem;
         private double _methodCoefficient;
 
@@ -21,7 +21,7 @@ namespace AC_project
         /// <summary>
         /// Stack of projects from the easiest to finish to the hardest one
         /// </summary>
-        private Stack<Project> _stackOfProjectsByDifficulty; // a.k.a projects_priority
+        private Stack<Project> _stackOfProjectsByLeastDifficulty; // a.k.a projects_priority
 
         private int[] _featureSupplies; // a.k.a "Vp"
         private int _featuresSupplySum; // sum of all _featureSupplies elements - a.k.a "supply_sum"
@@ -38,14 +38,14 @@ namespace AC_project
             _methodCoefficient = _methodCoefficient > 1 ? 1 : _methodCoefficient;
         }
 
-        public void Solve()
+        public Solution Solve()
         {
             // Initialization
             List<Project> completedProjects = _problem.listProjects.FindAll(p => p.IsCompleted);
             foreach(Project project in completedProjects)
             {
                 _problem.listProjects.Remove(project);
-                // TODO: add completed projects to the output.
+                _solution.Add(project);
             }
 
             BuildConnections();
@@ -66,24 +66,21 @@ namespace AC_project
             int numberOfFeaturesFirst = (int)((double)_stackOfFeaturesByPopularity.Count * _methodCoefficient);
             
             int i = 0;
-            while((_problem.listExperts.Count > 0 && _problem.listProjects.Count > 0) )
+            while((_problem.listExperts.Count > 0 && _problem.listProjects.Count > 0) && (_stackOfFeaturesByPopularity.Count > 0 && _stackOfProjectsByLeastDifficulty.Count > 0))
             {
-                if (i < numberOfFeaturesFirst) // && _stackOfFeaturesByPopularity.Count > 0)
+                if (i < numberOfFeaturesFirst)
                 {
                     int feature = _stackOfFeaturesByPopularity.Pop();
                     SolveForFeature(feature);
                 }
-                else //if(_stackOfProjectsByDifficulty.Count > 0)
+                else
                 {
-                    Project project = _stackOfProjectsByDifficulty.Pop();
+                    Project project = _stackOfProjectsByLeastDifficulty.Pop();
                     SolveForProject(project);
                 }
                 i++;
             }
-            Console.WriteLine("----------------------------\n-----------FINISHED---------\n");
-            Console.WriteLine("S = {0}", S);
-            Console.WriteLine("\nAny key to continue...");
-            Console.ReadLine();
+            return _solution;
         }
         
 
@@ -110,7 +107,7 @@ namespace AC_project
 
             while(viableExperts.Count > 0)
             {
-                Project project = _stackOfProjectsByDifficulty
+                Project project = _stackOfProjectsByLeastDifficulty
                     .ToList()
                     .Find(p => p.HasFeature(feature));
 
@@ -167,7 +164,8 @@ namespace AC_project
             {
                 _problem.listProjects.Remove(project);
             }
-            S++;
+            _solution.Add(project, expert);
+            _solution.Sum++;
         }
         
 
@@ -244,13 +242,13 @@ namespace AC_project
                 Console.WriteLine("----------------------------");
             }
 
-            var tempList = _problem.listProjects.OrderBy(i => i.Difficulty).ToList();
-            _stackOfProjectsByDifficulty = new Stack<Project>(tempList);
+            var tempList = _problem.listProjects.OrderByDescending(i => i.Difficulty).ToList();
+            _stackOfProjectsByLeastDifficulty = new Stack<Project>(tempList);
 
             // Temp print
             foreach (var project in tempList)
             {
-                Console.WriteLine("Project stack {0} - {1}", _stackOfProjectsByDifficulty.First(), _problem.listProjects[_stackOfProjectsByDifficulty.First().Index].Difficulty);
+                Console.WriteLine("Project stack {0} - {1}", _stackOfProjectsByLeastDifficulty.First(), _problem.listProjects[_stackOfProjectsByLeastDifficulty.First().Index].Difficulty);
             }
         }
     }

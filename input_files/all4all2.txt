@@ -1,0 +1,23 @@
+3,3,3
+1,0,0
+0,1,0
+0,0,3
+1,1,1
+0,1,0
+0,0,1
+
+----------------------------
+-----------FINISHED---------
+w = 0
+S = 3
+Project 0 (Is completed: True): [0, ]
+Project 1 (Is completed: True): [1, ]
+Project 2 (Is completed: False): [2, ]
+
+----------------------------
+-----------FINISHED---------
+w = 1
+S = 3
+Project 0 (Is completed: True): [0, ]
+Project 1 (Is completed: True): [1, ]
+Project 2 (Is completed: False): [2, ]
