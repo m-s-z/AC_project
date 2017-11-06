@@ -8,6 +8,7 @@ namespace AC_project
 {
     class ProblemSolver
     {
+        private int S = 0;
         private Problem _problem;
         private double _methodCoefficient;
 
@@ -34,7 +35,7 @@ namespace AC_project
             _methodCoefficient = methodCoefficient;
             // Trimming to [0, 1]
             _methodCoefficient = _methodCoefficient < 0 ? 0 : _methodCoefficient;
-            _methodCoefficient = _methodCoefficient > 0 ? 1 : _methodCoefficient;
+            _methodCoefficient = _methodCoefficient > 1 ? 1 : _methodCoefficient;
         }
 
         public void Solve()
@@ -58,20 +59,23 @@ namespace AC_project
 
             int numberOfFeaturesFirst = (int)((double)_stackOfFeaturesByPopularity.Count * _methodCoefficient);
             
-            // TODO: common STOP property for both methods.
-                        
-            for (int i = 0; i < numberOfFeaturesFirst; i++)
+            int i = 0;
+            while(_problem.listExperts.Count > 0 && _problem.listProjects.Count > 0)
             {
-                int feature = _stackOfFeaturesByPopularity.Pop();
-                SolveForFeature(feature);
+                if (i < numberOfFeaturesFirst) // && _stackOfFeaturesByPopularity.Count > 0)
+                {
+                    int feature = _stackOfFeaturesByPopularity.Pop();
+                    SolveForFeature(feature);
+                }
+                else //if(_stackOfProjectsByDifficulty.Count > 0)
+                {
+                    Project project = _stackOfProjectsByDifficulty.Pop();
+                    SolveForProject(project);
+                }
+                i++;
             }
-
-            while(_stackOfProjectsByDifficulty.Count > 0)
-            {
-                Project project = _stackOfProjectsByDifficulty.Pop();
-                SolveForProject(project);
-            }
-
+            Console.WriteLine("----------------------------\n-----------FINISHED---------\n");
+            Console.WriteLine("S = {0}", S);
             Console.WriteLine("\nAny key to continue...");
             Console.ReadLine();
         }
@@ -80,7 +84,7 @@ namespace AC_project
         private bool SolveForFeature(int feature)
         {
             /* Based on number of edges (not sorted yet, used Fitness instead).
-             * 
+             *
             List<Tuple<Expert, int>> viableExperts = new List<Tuple<Expert, int>>();
             foreach (Expert expert in _problem.listExpers)
             {
@@ -95,58 +99,71 @@ namespace AC_project
             //*
             List<Expert> viableExperts = _problem.listExperts
                 .FindAll(e => e.HasFeature(feature) == true)
-                .OrderBy(e => e.Fitness)
+                .OrderByDescending(e => e.Fitness)
                 .ToList();
-            Project project = _stackOfProjectsByDifficulty
-                .ToList()
-                .Find(p => p.HasFeature(feature));
 
-            if(project == null)
+            while(viableExperts.Count > 0)
             {
-                // No match.
-                return false;
-            }
+                Project project = _stackOfProjectsByDifficulty
+                    .ToList()
+                    .Find(p => p.HasFeature(feature));
 
-            // TODO: Mark 4: Assign expert<=>project, i.e.: remove Expert, alter the Project features set, remove the edge.
+                if (project == null)
+                {
+                    // No match.
+                    return false; // TODO: if using the bool => check if we assigned at least 1.
+                }
+
+                while(project.HasFeature(feature) && viableExperts.Count > 0)
+                {
+                    Expert expert = viableExperts.Last();
+                    viableExperts.RemoveAt(viableExperts.Count - 1);
+                    Assign(expert, project, feature);
+                }
+            }
 
             return true;
         }
 
         private bool SolveForProject(Project project)
         {
-            int feature = -1;
-            for (int i = 0; i < project.Features.Count(); i++)
+            for (int feature = 0; feature < project.Features.Count(); feature++)
             {
-                if(project.Features[i] > 0)
+                if(project.Features[feature] > 0)
                 {
-                    feature = i;
-                    break;
+                    List<Expert> viableExperts = _problem.listExperts
+                        .FindAll(e => e.HasFeature(feature) == true)
+                        .OrderByDescending(e => e.Fitness)
+                        .ToList();
+                    while (project.Features[feature] > 0 & viableExperts.Count > 0)
+                    {
+                        Expert expert = viableExperts.Last();
+                        viableExperts.RemoveAt(viableExperts.Count - 1);
+                        Assign(expert, project, feature);
+                    }
                 }
             }
-            if(feature < 0)
-            {
-                // No match.
-                return false;
-            }
-
-            List<Expert> viableExperts = _problem.listExperts
-                .FindAll(e => e.HasFeature(feature) == true)
-                .OrderBy(e => e.Fitness)
-                .ToList();
-            // Then it starts assigning experts until all places of the choosen feature in this project are filled.
-
-
-            // TODO: Mark 4: Assign expert<=>project, i.e.: remove Expert, alter the Project features set, remove the edge.
 
             return true;
         }
 
-        private bool Assign(Expert expert, Project project)
+        private void Assign(Expert expert, Project project, int feature)
         {
-            return false;
+            /* TODO: Mark 4: Assign expert<=>project, i.e.: 
+             * remove Expert, 
+             * alter the Project features set, 
+             * remove the edge. lol
+             */
+
+            _problem.listExperts.Remove(expert);
+            project.Features[feature]--;
+            if(project.IsCompleted)
+            {
+                _problem.listProjects.Remove(project);
+            }
+            S++;
         }
         
-
 
         private void BuildConnections()
         {
