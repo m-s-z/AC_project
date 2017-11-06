@@ -41,6 +41,12 @@ namespace AC_project
         public void Solve()
         {
             // Initialization
+            List<Project> completedProjects = _problem.listProjects.FindAll(p => p.IsCompleted);
+            foreach(Project project in completedProjects)
+            {
+                _problem.listProjects.Remove(project);
+                // TODO: add completed projects to the output.
+            }
 
             BuildConnections();
             Console.WriteLine("\nAny key to continue...");
@@ -60,7 +66,7 @@ namespace AC_project
             int numberOfFeaturesFirst = (int)((double)_stackOfFeaturesByPopularity.Count * _methodCoefficient);
             
             int i = 0;
-            while(_problem.listExperts.Count > 0 && _problem.listProjects.Count > 0)
+            while((_problem.listExperts.Count > 0 && _problem.listProjects.Count > 0) )
             {
                 if (i < numberOfFeaturesFirst) // && _stackOfFeaturesByPopularity.Count > 0)
                 {
