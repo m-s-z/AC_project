@@ -221,7 +221,14 @@ namespace AC_project
             double[] arrayOfFeatureDifficulty = new double[_problem.numberOfFeatures];
             for (int i = 0; i < _problem.numberOfFeatures; i++)
             {
-                arrayOfFeatureDifficulty[i] = (double)_featuresSupplySum / _featureSupplies[i];
+                if (_featureSupplies[i] > 0)
+                {
+                    arrayOfFeatureDifficulty[i] = (double)_featuresSupplySum / _featureSupplies[i];
+                }
+                else
+                {
+                    arrayOfFeatureDifficulty[i] = 0;
+                }
             }
 
             foreach (var project in _problem.listProjects)
