@@ -12,10 +12,12 @@ namespace AC_project
         static void Main(string[] args)
         {
             //String problemName = "problem1.txt";
-            String problemName = "zeros.txt";
-            //String problemName = "problem1.txt";
-            //String problemName = "problem1.txt";
-            double methodCoefficient = 0;
+            //String problemName = "zeros.txt";
+            //String problemName = "all4all.txt";
+            //String problemName = "all4all2.txt";
+            String problemName = "TestKinga.txt";
+
+            double methodCoefficient = 1;
             if (args.Count() == 2)
             {
                 // TODO: print error infos if failed
@@ -25,7 +27,13 @@ namespace AC_project
             String inputFilesPath = Directory.GetCurrentDirectory() + "..\\..\\..\\..\\input_files\\";
             Problem problem = new Problem(inputFilesPath + problemName);
             _solver = new ProblemSolver(problem, methodCoefficient);
-            _solver.Solve();
+            Solution solution = _solver.Solve();
+
+            Console.WriteLine("----------------------------\n-----------FINISHED---------\n");
+            Console.WriteLine("w = {0}", methodCoefficient);
+            solution.Print();
+            Console.WriteLine("\nAny key to continue...");
+            Console.ReadLine();
         }
     }
 }
