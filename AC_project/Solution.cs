@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AC_project
 {
-    class ProjectSolution
+    public class ProjectSolution
     {
         Project _project;
         public Project Project { get { return _project; } }
@@ -36,7 +36,7 @@ namespace AC_project
         }
     }
 
-    class Solution
+    public class Solution
     {
         public int Sum = 0;
         List<ProjectSolution> _projectSolutions = new List<ProjectSolution>();

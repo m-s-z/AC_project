@@ -7,14 +7,14 @@ using System.IO;
 
 namespace AC_project
 {
-    class Problem
+    public class Problem
     {
         private int _numberOfFeatures;
         private List<Project> _listProjects;
-        private List<Expert> _listExpers;
+        private List<Expert> _listExperts;
 
         public List<Project> listProjects { get { return _listProjects; } }
-        public List<Expert> listExperts { get { return _listExpers; } }
+        public List<Expert> listExperts { get { return _listExperts; } }
         public int numberOfFeatures { get { return _numberOfFeatures; } }
         public int numberOfExperts { get { return _listProjects.Count; } }
         public int numberOfProjects { get { return _listProjects.Count; } }
@@ -25,7 +25,15 @@ namespace AC_project
             SetIndices();
         }
 
-        private void ReadFile(string pathToFile)
+        public Problem(List<Project> projects, List<Expert> experts)
+        {
+            _listProjects = projects;
+            _listExperts = experts;
+            _numberOfFeatures = projects.First().Features.Count();
+            
+        }
+
+        public void ReadFile(string pathToFile)
         {
             try
             {
@@ -46,7 +54,7 @@ namespace AC_project
                                        .Select(v => new Project(v))
                                        .ToList();
 
-                _listExpers = File.ReadLines(pathToFile)
+                _listExperts = File.ReadLines(pathToFile)
                                        .Skip(numberOfProjects + 1)
                                        .Take(numberOfExperts)
                                        .Select(v => new Expert(v))
@@ -61,11 +69,11 @@ namespace AC_project
             }
         }
 
-        private void SetIndices()
+        public void SetIndices()
         {
-            for (int i = 0; i < _listExpers.Count(); i++)
+            for (int i = 0; i < _listExperts.Count(); i++)
             {
-                _listExpers[i].Index = i;
+                _listExperts[i].Index = i;
             }
 
             for (int i = 0; i < _listProjects.Count(); i++)
