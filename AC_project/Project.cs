@@ -67,12 +67,18 @@ namespace AC_project
             }
         }
 
-        public void CalculateDifficulty(double[] arrayOfFeatureSupplyDifficulty, double[] arrayOfFeatureDemandDifficulty)
+        public void CalculateDifficulty(double[] arrayOfFeatureSupplyDifficulty, double[] arrayOfFeatureDemandDifficulty, int[] supply)
         {
             for (int i = 0; i < _features.Count(); i++)
             {
+                
                 Console.WriteLine("Difficulty P{0} = feature[{1}] {2} * fD {3} - feature[{4}] * Fd {5}", _difficulty, i, _features[i], arrayOfFeatureSupplyDifficulty[i], i, arrayOfFeatureDemandDifficulty[i]);
                 _difficulty += _features[i] * arrayOfFeatureSupplyDifficulty[i] - _features[i] * arrayOfFeatureDemandDifficulty[i];
+                if (_features[i] > supply[i])
+                {
+                    _difficulty = int.MaxValue;
+                    return;
+                }
             }
         }
     }

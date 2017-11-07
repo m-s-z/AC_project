@@ -274,7 +274,7 @@ namespace AC_project
             {
                 
                 
-                project.CalculateDifficulty(arrayOfFeatureSupplyDifficulty, arrayOfFeatureDemandDifficulty);
+                project.CalculateDifficulty(arrayOfFeatureSupplyDifficulty, arrayOfFeatureDemandDifficulty, _featureSupplies);
                 Console.WriteLine("Project difficulty {0}", project.Difficulty);
                 Console.WriteLine("----------------------------");
             }
