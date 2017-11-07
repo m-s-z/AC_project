@@ -1,0 +1,92 @@
+5,30,3
+10,7,4
+0,0,2
+0,1,2
+1,0,1
+1,1,0
+1,0,0
+0,1,0
+0,1,1
+1,0,1
+0,1,0
+1,0,1
+1,0,0
+0,1,0
+0,0,1
+1,0,0
+0,1,0
+1,0,1
+0,1,1
+0,1,0
+1,1,1
+1,1,0
+0,0,1
+1,1,0
+0,0,1
+0,1,0
+0,0,1
+0,0,1
+1,1,0
+0,1,1
+1,1,1
+1,0,0
+1,0,0
+1,0,0
+0,1,1
+1,0,1
+
+
+----------------------------
+-----------FINISHED---------
+
+w = 0
+S = 28
+Project 0 (Is completed: False): [26, 25, 17, 15, 14, 11, 9, 6, 5, 3, 19, 13, 12, 10, 7, 4, 2, 16, 8, ]
+Project 1 (Is completed: True): [23, 21, ]
+Project 2 (Is completed: True): [22, 20, 18, ]
+Project 3 (Is completed: True): [27, 24, ]
+Project 4 (Is completed: True): [29, 28, ]
+
+---------------------------8
+-----------FINISHED---------
+
+w = 0.2
+S = 28
+Project 0 (Is completed: False): [26, 25, 17, 15, 14, 11, 9, 6, 5, 3, 19, 13, 12, 10, 7, 4, 2, 16, 8, ]
+Project 1 (Is completed: True): [23, 21, ]
+Project 2 (Is completed: True): [22, 20, 18, ]
+Project 3 (Is completed: True): [27, 24, ]
+Project 4 (Is completed: True): [29, 28, ]
+
+----------------------------
+-----------FINISHED---------
+
+w = 0.5
+S = 29
+Project 0 (Is completed: False): [20, 18, 16, 14, 25, 17, 15, 11, 9, 6, 5, 3, 0, 13, 12, 10, 7, 4, 2, 1, ]
+Project 1 (Is completed: True): [28, 24, ]
+Project 2 (Is completed: True): [23, 21, 19, ]
+Project 3 (Is completed: True): [29, 26, ]
+Project 4 (Is completed: True): [27, 22, ]
+
+----------------------------
+-----------FINISHED---------
+
+w = 0.8
+S = 27
+Project 0 (Is completed: False): [20, 18, 16, 14, 17, 15, 13, 12, 10, 7, 4, 25, 11, 9, 6, 5, 3, 0, ]
+Project 1 (Is completed: True): [28, 24, ]
+Project 2 (Is completed: True): [23, 21, 19, ]
+Project 3 (Is completed: True): [29, 26, ]
+Project 4 (Is completed: True): [22, 27, ]
+
+----------------------------
+-----------FINISHED---------
+
+w = 1
+S = 27
+Project 0 (Is completed: False): [20, 18, 16, 14, 17, 15, 13, 12, 10, 7, 4, 25, 11, 9, 6, 5, 3, 0, ]
+Project 1 (Is completed: True): [28, 24, ]
+Project 2 (Is completed: True): [23, 21, 19, ]
+Project 3 (Is completed: True): [29, 26, ]
+Project 4 (Is completed: True): [22, 27, ]

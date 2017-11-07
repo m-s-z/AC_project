@@ -12,9 +12,20 @@ namespace AC_project
         static void Main(string[] args)
         {
             //String problemName = "problem1.txt";
-            String problemName = "zeros.txt";
-            //String problemName = "problem1.txt";
-            //String problemName = "problem1.txt";
+            //String problemName = "zeros.txt";
+            //String problemName = "all4all.txt";
+            //String problemName = "all4all2.txt";
+
+            //String problemName = "TestKinga.txt";
+
+            //String problemName = "test1.csv";
+            //String problemName = "test2.csv";
+            //String problemName = "INPUT-3.csv";
+            //String problemName = "test3littleExperts.csv";
+            //String problemName = "test4ManyExperts.csv";
+            //String problemName = "test5BigProject.csv";
+            String problemName = "test6BigSample.csv";
+
             double methodCoefficient = 0;
             if (args.Count() == 2)
             {
@@ -25,7 +36,13 @@ namespace AC_project
             String inputFilesPath = Directory.GetCurrentDirectory() + "..\\..\\..\\..\\input_files\\";
             Problem problem = new Problem(inputFilesPath + problemName);
             _solver = new ProblemSolver(problem, methodCoefficient);
-            _solver.Solve();
+            Solution solution = _solver.Solve();
+
+            Console.WriteLine("----------------------------\n-----------FINISHED---------\n");
+            Console.WriteLine("w = {0}", methodCoefficient);
+            solution.Print();
+            Console.WriteLine("\nAny key to continue...");
+            Console.ReadLine();
         }
     }
 }
