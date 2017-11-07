@@ -27,10 +27,10 @@ namespace AC_project.Tests
             }
             catch (Exception e)
             {
-                Assert.AreEqual("Input string was not in a correct format.", e.Message);
+                Assert.Fail("Program did fail on wrong input.");
                 return;
             }
-            Assert.Fail("Program did not fail on wrong input.");
+            
         }
 
         [TestMethod()]
