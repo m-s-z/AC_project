@@ -28,9 +28,15 @@ namespace AC_project
         public String Print()
         {
             String output = "";
+            int i = 0;
             foreach (Expert expert in _experts)
             {
-                output += String.Format("{0}, ", expert.Index);
+                output += String.Format("{0}", expert.Index);
+                if (i < _experts.Count - 1)
+                {
+                    output += ", ";
+                }
+                i++;
             }
             return output;
         }
@@ -60,11 +66,13 @@ namespace AC_project
             List<ProjectSolution> projSols = _projectSolutions
                 .OrderBy(s => s.Project.Index)
                 .ToList();
-
-            String output = String.Format("S = {0}\n", Sum);
+            int numberOfCompleted = projSols.Select(sol => sol.IsCompleted).Count();
+            String output = String.Format("S = {0}\nProjects Completed: {1}\n\n", Sum, numberOfCompleted);
             foreach (ProjectSolution projSol in projSols)
             {
-                output += String.Format("Project {0} (Is completed: {1}): [{2}]\n", projSol.Project.Index, projSol.IsCompleted, projSol.Print());
+                output += String.Format("Project[{0}]:\n  Completed: {1}. ", projSol.Project.Index, projSol.IsCompleted);
+                output += projSol.IsCompleted ? " " : "";
+                output += String.Format("Experts: [{0}].\n", projSol.Print());
             }
             Console.WriteLine(output);
         }
