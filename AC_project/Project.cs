@@ -38,7 +38,12 @@ namespace AC_project
 
         public Project(string readLine)
         {
-            string[] values = readLine.Split(',');
+            string[] values = readLine.Split(';');
+            if (values.Count() <= 1)
+            {
+                values = readLine.Split(',');
+            }
+
             _features = new int[values.Count()];
             Console.Write("Project:");
             for (int i = 0; i < values.Count(); i++)
@@ -62,12 +67,12 @@ namespace AC_project
             }
         }
 
-        public void CalculateDifficulty(double[] arrayOfFeatureDifficulty)
+        public void CalculateDifficulty(double[] arrayOfFeatureSupplyDifficulty, double[] arrayOfFeatureDemandDifficulty)
         {
             for (int i = 0; i < _features.Count(); i++)
             {
-                Console.WriteLine("Difficulty P{0} = feature[{1}] {2} * fD {3}", _difficulty, i, _features[i], arrayOfFeatureDifficulty[i]);
-                _difficulty += _features[i] * arrayOfFeatureDifficulty[i];
+                Console.WriteLine("Difficulty P{0} = feature[{1}] {2} * fD {3} - feature[{4}] * Fd {5}", _difficulty, i, _features[i], arrayOfFeatureSupplyDifficulty[i], i, arrayOfFeatureDemandDifficulty[i]);
+                _difficulty += _features[i] * arrayOfFeatureSupplyDifficulty[i] - _features[i] * arrayOfFeatureDemandDifficulty[i];
             }
         }
     }

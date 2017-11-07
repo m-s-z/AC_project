@@ -28,7 +28,12 @@ namespace AC_project
 
         public Expert(string readLine)
         {
-            string[] values = readLine.Split(',');
+            string[] values = readLine.Split(';');
+            if (values.Count() <= 1)
+            {
+                values = readLine.Split(',');
+            }
+
             _features = new int[values.Count()];
             Console.Write("Expert:");
             for (int i = 0; i < values.Count(); i++)

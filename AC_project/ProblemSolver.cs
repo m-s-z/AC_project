@@ -31,6 +31,9 @@ namespace AC_project
         public int[] _featureSupplies; // a.k.a "Vp"
         public int _featuresSupplySum; // sum of all _featureSupplies elements - a.k.a "supply_sum"
 
+        public int[] _featureDemand; // a.k.a "Vp"
+        public int _featuresDemandSum; // sum of all _featureSupplies elements - a.k.a "supply_sum"
+
         // Temps?
         private List<Tuple<int, int>> _listOfFeaturesByPopularity; // i.e. "Vp" after indexing it and sorting by popularity
 
@@ -228,22 +231,50 @@ namespace AC_project
 
         public void CreateStackOfProjectsDifficulty()
         {
-            double[] arrayOfFeatureDifficulty = new double[_problem.numberOfFeatures];
-            for (int i = 0; i < _problem.numberOfFeatures; i++)
-            {
-                if (_featureSupplies[i] > 0)
-                {
-                    arrayOfFeatureDifficulty[i] = (double)_featuresSupplySum / _featureSupplies[i];
-                }
-                else
-                {
-                    arrayOfFeatureDifficulty[i] = 0;
-                }
-            }
+            double[] arrayOfFeatureSupplyDifficulty = new double[_problem.numberOfFeatures];
+            double[] arrayOfFeatureDemandDifficulty = new double[_problem.numberOfFeatures];
+
+            _featureDemand = new int[_problem.numberOfFeatures];
 
             foreach (var project in _problem.listProjects)
             {
-                project.CalculateDifficulty(arrayOfFeatureDifficulty);
+                for (int i = 0; i < _problem.numberOfFeatures; i++)
+                {
+                    if (project.HasFeature(i))
+                    {
+                        _featureDemand[i]++;
+                        _featuresDemandSum++;
+                    }
+                }
+            }
+
+                for (int i = 0; i < _problem.numberOfFeatures; i++)
+            {
+                if (_featureSupplies[i] > 0)
+                {
+                    arrayOfFeatureSupplyDifficulty[i] = (double)_featuresSupplySum / _featureSupplies[i];
+                }
+                else
+                {
+                    arrayOfFeatureSupplyDifficulty[i] = 0;
+                }
+
+                if (_featureDemand[i] > 0)
+                {
+                    arrayOfFeatureDemandDifficulty[i] =  (double)_featuresDemandSum / (double)_featureDemand[i];
+                }
+                else
+                {
+                    arrayOfFeatureDemandDifficulty[i] = 0;
+                }
+            }
+
+
+            foreach (var project in _problem.listProjects)
+            {
+                
+                
+                project.CalculateDifficulty(arrayOfFeatureSupplyDifficulty, arrayOfFeatureDemandDifficulty);
                 Console.WriteLine("Project difficulty {0}", project.Difficulty);
                 Console.WriteLine("----------------------------");
             }
