@@ -278,6 +278,10 @@ namespace AC_project
                 Console.WriteLine("Project difficulty {0}", project.Difficulty);
                 Console.WriteLine("----------------------------");
             }
+            foreach (var expert in _problem.listExperts)
+            {
+                expert.CalculateFitness(arrayOfFeatureSupplyDifficulty);
+            }
 
             var tempList = _problem.listProjects.OrderByDescending(i => i.Difficulty).ToList();
             _stackOfProjectsByLeastDifficulty = new Stack<Project>(tempList);
