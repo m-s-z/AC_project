@@ -26,16 +26,27 @@
 
 w = 0
 S = 15
-Project 0 (Is completed: False): [6, 0, 1, ]
-Project 1 (Is completed: True): [9, 7, 4, 2, 5, 3, ]
-Project 2 (Is completed: True): [14, 13, 12, 10, 11, 8, ]
+Projects Completed: 2
+
+Project[0]:
+  Completed: False. Experts: [6, 0, 3].
+Project[1]:
+  Completed: True.  Experts: [9, 1, 2, 14, 11, 5].
+Project[2]:
+  Completed: True.  Experts: [13, 10, 7, 4, 8, 12].
 
 ----------------------------
 -----------FINISHED---------
 
 w = 1
 S = 15
-Project 0 (Is completed: False): [5, 3, 6, 0, ]
-Project 1 (Is completed: False): [11, 8, 9, 1, ]
-Project 2 (Is completed: True): [14, 12, 13, 10, 7, 4, ]
-Project 4 (Is completed: False): [2, ]
+Projects Completed: 1
+
+Project[0]:
+  Completed: False. Experts: [5, 3, 6, 0].
+Project[1]:
+  Completed: False. Experts: [2, 11, 9, 1].
+Project[2]:
+  Completed: True.  Experts: [8, 12, 13, 10, 7, 4].
+Project[3]:
+  Completed: False. Experts: [14].

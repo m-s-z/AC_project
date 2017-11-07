@@ -39,20 +39,34 @@
 -----------FINISHED---------
 
 w = 0
-S = 29
-Project 0 (Is completed: False): [9, 6, 2, 1, 3, ]
-Project 1 (Is completed: True): [11, 10, 7, 4, 8, 5, ]
-Project 2 (Is completed: True): [19, 15, 14, 13, 16, 12, ]
-Project 3 (Is completed: True): [27, 26, 25, 22, 17, 18, ]
-Project 4 (Is completed: True): [29, 28, 24, 23, 21, 20, ]
+S = 30
+Projects Completed: 5
+
+Project[0]:
+  Completed: True.  Experts: [29, 22, 23, 17, 12, 11].
+Project[1]:
+  Completed: True.  Experts: [0, 4, 1, 28, 16, 8].
+Project[2]:
+  Completed: True.  Experts: [19, 13, 10, 7, 20, 18].
+Project[3]:
+  Completed: True.  Experts: [27, 26, 25, 9, 6, 21].
+Project[4]:
+  Completed: True.  Experts: [15, 2, 5, 3, 24, 14].
 
 ----------------------------
 -----------FINISHED---------
 
 w = 1
-S = 29
-Project 0 (Is completed: False): [12, 11, 2, 1, 0, ]
-Project 1 (Is completed: True): [16, 14, 10, 7, 4, 3, ]
-Project 2 (Is completed: True): [20, 18, 19, 17, 15, 13, ]
-Project 3 (Is completed: True): [21, 26, 25, 9, 6, 5, ]
-Project 4 (Is completed: True): [29, 28, 24, 23, 22, 27, ]
+S = 30
+Projects Completed: 5
+
+Project[0]:
+  Completed: True.  Experts: [29, 28, 17, 15, 3, 24].
+Project[1]:
+  Completed: True.  Experts: [16, 8, 4, 1, 22, 0].
+Project[2]:
+  Completed: True.  Experts: [20, 18, 19, 13, 10, 7].
+Project[3]:
+  Completed: True.  Experts: [21, 27, 26, 25, 9, 6].
+Project[4]:
+  Completed: True.  Experts: [23, 12, 11, 5, 2, 14].

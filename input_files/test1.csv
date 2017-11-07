@@ -11,13 +11,22 @@
 
 w = 0
 S = 4
-Project 0 (Is completed: True): [3, 2, 1, ]
-Project 1 (Is completed: True): [0, ]
+Projects Completed: 2
+
+Project[0]:
+  Completed: True.  Experts: [3, 2, 1].
+Project[1]:
+  Completed: True.  Experts: [0].
+
 
 ----------------------------
 -----------FINISHED---------
 
 w = 1
 S = 4
-Project 0 (Is completed: True): [3, 2, 1, ]
-Project 1 (Is completed: True): [0, ]
+Projects Completed: 2
+
+Project[0]:
+  Completed: True.  Experts: [3, 2, 1].
+Project[1]:
+  Completed: True.  Experts: [0].
