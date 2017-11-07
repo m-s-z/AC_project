@@ -6,25 +6,30 @@ using System.Threading.Tasks;
 
 namespace AC_project
 {
-    class ProblemSolver
+    public class ProblemSolver
     {
         private Solution _solution = new Solution();
         private Problem _problem;
+        public Problem Problem { get { return _problem; } }
         private double _methodCoefficient;
+        public double MethodCoefficient { get { return _methodCoefficient; } }
 
         private List<Edge> _listEdges;
+        public List<Edge> ListEdges { get { return _listEdges; } }
 
         /// <summary>
         /// Stack of indices of features in such a way that indices of the most popular (the simplest to fill) features are at the bottom of the stack
         /// </summary>
         private Stack<int> _stackOfFeaturesByPopularity;
+        public Stack<int> StackOfFeaturesByPopularity { get { return _stackOfFeaturesByPopularity; } }
         /// <summary>
         /// Stack of projects from the easiest to finish to the hardest one
         /// </summary>
         private Stack<Project> _stackOfProjectsByLeastDifficulty; // a.k.a projects_priority
+        public Stack<Project> StackOfProjectsByLeastDifficulty { get { return _stackOfProjectsByLeastDifficulty; } }
 
-        private int[] _featureSupplies; // a.k.a "Vp"
-        private int _featuresSupplySum; // sum of all _featureSupplies elements - a.k.a "supply_sum"
+        public int[] _featureSupplies; // a.k.a "Vp"
+        public int _featuresSupplySum; // sum of all _featureSupplies elements - a.k.a "supply_sum"
 
         // Temps?
         private List<Tuple<int, int>> _listOfFeaturesByPopularity; // i.e. "Vp" after indexing it and sorting by popularity
@@ -85,7 +90,7 @@ namespace AC_project
         }
         
 
-        private bool SolveForFeature(int feature)
+        public bool SolveForFeature(int feature)
         {
             /* Based on number of edges (not sorted yet, used Fitness instead).
              *
@@ -114,8 +119,8 @@ namespace AC_project
 
                 if (project == null)
                 {
-                    // No match.
-                    return false; // TODO: if using the bool => check if we assigned at least 1.
+                    // No more matches.
+                    return false;
                 }
 
                 while(project.HasFeature(feature) && viableExperts.Count > 0)
@@ -129,7 +134,7 @@ namespace AC_project
             return true;
         }
 
-        private bool SolveForProject(Project project)
+        public bool SolveForProject(Project project)
         {
             for (int feature = 0; feature < project.Features.Count(); feature++)
             {
@@ -151,7 +156,7 @@ namespace AC_project
             return true;
         }
 
-        private void Assign(Expert expert, Project project, int feature)
+        public void Assign(Expert expert, Project project, int feature)
         {
             /* TODO: Mark 4: Assign expert<=>project, i.e.: 
              * remove Expert, 
@@ -170,7 +175,7 @@ namespace AC_project
         }
         
 
-        private void BuildConnections()
+        public void BuildConnections()
         {
             _listEdges = new List<Edge>();
             _listOfFeaturesByPopularity = new List<Tuple<int, int>>();
@@ -202,7 +207,7 @@ namespace AC_project
             //}
         }
 
-        private void CreateStackOfFeaturesPopularity()
+        public void CreateStackOfFeaturesPopularity()
         {
             _listOfFeaturesByPopularity = _listOfFeaturesByPopularity.OrderByDescending(i => i.Item2).ToList();
             _stackOfFeaturesByPopularity = new Stack<int>();
@@ -221,7 +226,7 @@ namespace AC_project
             Console.WriteLine("{0}]\n", stack);
         }
 
-        private void CreateStackOfProjectsDifficulty()
+        public void CreateStackOfProjectsDifficulty()
         {
             double[] arrayOfFeatureDifficulty = new double[_problem.numberOfFeatures];
             for (int i = 0; i < _problem.numberOfFeatures; i++)
