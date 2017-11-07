@@ -11,23 +11,7 @@ namespace AC_project
 
         static void Main(string[] args)
         {
-            //String problemName = "problem1.txt";
-            //String problemName = "zeros.txt";
-            //String problemName = "all4all.txt";
-            //String problemName = "all4all2.txt";
-
-            //String problemName = "TestKinga.txt";
-
-            //String problemName = "test1.csv";
-            //String problemName = "test2.csv";
-            //String problemName = "INPUT-3.csv";
-            //String problemName = "test3littleExperts.csv";
-            //String problemName = "test4ManyExperts.csv";
-            //String problemName = "test5BigProject.csv";
-            //String problemName = "test6BigSample.csv";
-            String problemName = "VERYbigsample.csv";
-
-            String path = Directory.GetCurrentDirectory() + "..\\..\\..\\..\\input_files\\" + problemName;
+            String path = "";
             double methodCoefficient = 0;
             if (args.Count() == 2)
             {
