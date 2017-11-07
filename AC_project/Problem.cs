@@ -30,7 +30,12 @@ namespace AC_project
             try
             {
                 string line = File.ReadLines(pathToFile).First();
-                string[] lines = line.Split(',');
+                string[] lines = line.Split(';');
+                if (lines.Count() <= 1)
+                {
+                    lines = line.Split(',');
+                } 
+
                 int numberOfProjects = int.Parse(lines[0]);
                 int numberOfExperts = int.Parse(lines[1]);
                 _numberOfFeatures = int.Parse(lines[2]);
@@ -67,6 +72,11 @@ namespace AC_project
             {
                 _listProjects[i].Index = i;
             }
+        }
+
+        private void SetFeatures()
+        {
+
         }
     }
 }

@@ -1,0 +1,41 @@
+5,15,3
+2,2,2
+1,3,2
+0,4,2
+5,0,1
+1,1,4
+1,0,0
+0,1,0
+0,1,1
+1,0,1
+0,1,0
+1,0,1
+1,0,0
+0,1,0
+0,0,1
+1,0,0
+0,1,0
+1,0,1
+0,1,1
+0,1,0
+1,1,1
+
+
+----------------------------
+-----------FINISHED---------
+
+w = 0
+S = 15
+Project 0 (Is completed: False): [6, 0, 1, ]
+Project 1 (Is completed: True): [9, 7, 4, 2, 5, 3, ]
+Project 2 (Is completed: True): [14, 13, 12, 10, 11, 8, ]
+
+----------------------------
+-----------FINISHED---------
+
+w = 1
+S = 15
+Project 0 (Is completed: False): [5, 3, 6, 0, ]
+Project 1 (Is completed: False): [11, 8, 9, 1, ]
+Project 2 (Is completed: True): [14, 12, 13, 10, 7, 4, ]
+Project 4 (Is completed: False): [2, ]

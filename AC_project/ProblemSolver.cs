@@ -27,7 +27,7 @@ namespace AC_project
         private int _featuresSupplySum; // sum of all _featureSupplies elements - a.k.a "supply_sum"
 
         // Temps?
-        private List<Tuple<int, int>> _listOfFeaturesPopularity; // i.e. "Vp" after indexing it and sorting by popularity
+        private List<Tuple<int, int>> _listOfFeaturesByPopularity; // i.e. "Vp" after indexing it and sorting by popularity
 
         public ProblemSolver(Problem problem, double methodCoefficient)
         {
@@ -36,6 +36,7 @@ namespace AC_project
             // Trimming to [0, 1]
             _methodCoefficient = _methodCoefficient < 0 ? 0 : _methodCoefficient;
             _methodCoefficient = _methodCoefficient > 1 ? 1 : _methodCoefficient;
+            
         }
 
         public Solution Solve()
@@ -172,7 +173,7 @@ namespace AC_project
         private void BuildConnections()
         {
             _listEdges = new List<Edge>();
-            _listOfFeaturesPopularity = new List<Tuple<int, int>>();
+            _listOfFeaturesByPopularity = new List<Tuple<int, int>>();
             _featureSupplies = new int[_problem.numberOfFeatures];
             for (int f = 0; f < _problem.numberOfFeatures; f++)
             {
@@ -192,7 +193,7 @@ namespace AC_project
                         }
                     }
                 }
-                _listOfFeaturesPopularity.Add(new Tuple<int, int>(f, _featureSupplies[f]));
+                _listOfFeaturesByPopularity.Add(new Tuple<int, int>(f, _featureSupplies[f]));
             }
 
             //foreach(var p in _listOfFeaturesPopularity)
@@ -203,9 +204,9 @@ namespace AC_project
 
         private void CreateStackOfFeaturesPopularity()
         {
-            _listOfFeaturesPopularity = _listOfFeaturesPopularity.OrderByDescending(i => i.Item2).ToList();
+            _listOfFeaturesByPopularity = _listOfFeaturesByPopularity.OrderByDescending(i => i.Item2).ToList();
             _stackOfFeaturesByPopularity = new Stack<int>();
-            foreach (var p in _listOfFeaturesPopularity)
+            foreach (var p in _listOfFeaturesByPopularity)
             {
                 Console.WriteLine("Feature {0}: {1}", p.Item1, p.Item2);
                 _stackOfFeaturesByPopularity.Push(p.Item1);
