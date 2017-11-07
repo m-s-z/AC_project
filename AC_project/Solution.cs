@@ -66,7 +66,7 @@ namespace AC_project
             List<ProjectSolution> projSols = _projectSolutions
                 .OrderBy(s => s.Project.Index)
                 .ToList();
-            int numberOfCompleted = projSols.Select(sol => sol.IsCompleted).Count();
+            int numberOfCompleted = projSols.Where(s => s.IsCompleted == true).Count();
             String output = String.Format("S = {0}\nProjects Completed: {1}\n\n", Sum, numberOfCompleted);
             foreach (ProjectSolution projSol in projSols)
             {
