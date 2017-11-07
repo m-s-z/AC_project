@@ -43,10 +43,9 @@ namespace AC_project.Tests
             }
             catch (Exception e)
             {
-                Assert.AreEqual("Input string was not in a correct format.", e.Message);
+                Assert.Fail("Program did fail on wrong input.");
                 return;
             }
-            Assert.Fail("Program did not fail on wrong input.");
         }
 
         [TestMethod()]
@@ -103,13 +102,15 @@ namespace AC_project.Tests
         {
             int[] features = new int[] {1,2,0,4};
             Project p = new Project("1,2,0,4");
-            double[] arrayOfFeatureDifficulty = new double[] { 1, 1, 2, 2 };
+            double[] arrayOfFeatureSupplyDifficulty = new double[] { 1, 1, 2, 2 };
+            double[] arrayOfFeatureDemandDifficulty = new double[] { 1, 1, 2, 2 };
+
             double difficulty = 0;
             for (int i = 0; i < features.Count(); i++)
             {
-                difficulty += features[i] * arrayOfFeatureDifficulty[i];
+                difficulty += features[i] * arrayOfFeatureSupplyDifficulty[i] - features[i] * arrayOfFeatureDemandDifficulty[i];
             }
-            p.CalculateDifficulty(arrayOfFeatureDifficulty);
+            p.CalculateDifficulty(arrayOfFeatureSupplyDifficulty, arrayOfFeatureDemandDifficulty);
             Assert.AreEqual(difficulty, p.Difficulty);
         }
 
@@ -118,9 +119,10 @@ namespace AC_project.Tests
         {
             int[] features = new int[] { 1, 2, 0, 4 };
             Project p = new Project("12,20,10,43");
-            double[] arrayOfFeatureDifficulty = new double[] { 0, 0, 0, 0 };
+            double[] arrayOfFeatureSupplyDifficulty = new double[] { 0, 0, 0, 0 };
+            double[] arrayOfFeatureDemandDifficulty = new double[] { 0, 0, 0, 0 };
             double difficulty = 0;
-            p.CalculateDifficulty(arrayOfFeatureDifficulty);
+            p.CalculateDifficulty(arrayOfFeatureSupplyDifficulty, arrayOfFeatureDemandDifficulty);
             Assert.AreEqual(difficulty, p.Difficulty);
         }
     }
