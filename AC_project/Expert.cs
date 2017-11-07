@@ -60,8 +60,6 @@ namespace AC_project
         {
             for (int i = 0; i < _features.Count(); i++)
             {
-                Console.WriteLine("Fitness P{0} = feature[{1}] {2} * fD {3}", _fitness, i, _features[i], arrayOfFeatureSupplyDifficulty[i]);
-
                 _fitness += _features[i] * arrayOfFeatureSupplyDifficulty[i];
             }
         }
