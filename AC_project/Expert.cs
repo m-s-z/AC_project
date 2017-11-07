@@ -41,7 +41,7 @@ namespace AC_project
 
         public bool HasFeature(int featureIndex)
         {
-            if(_features[featureIndex] == 1)
+            if(featureIndex < _features.Count() && _features[featureIndex] == 1)
             {
                 return true;
             }
