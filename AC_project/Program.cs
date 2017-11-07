@@ -16,7 +16,7 @@ namespace AC_project
             //String problemName = "all4all.txt";
             //String problemName = "all4all2.txt";
 
-            //String problemName = "TestKinga.txt";
+            String problemName = "TestKinga.txt";
 
             //String problemName = "test1.csv";
             //String problemName = "test2.csv";
@@ -24,7 +24,7 @@ namespace AC_project
             //String problemName = "test3littleExperts.csv";
             //String problemName = "test4ManyExperts.csv";
             //String problemName = "test5BigProject.csv";
-            String problemName = "test6BigSample.csv";
+            //String problemName = "test6BigSample.csv";
 
             double methodCoefficient = 0;
             if (args.Count() == 2)
