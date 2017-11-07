@@ -25,7 +25,7 @@ namespace AC_project
             //String problemName = "test4ManyExperts.csv";
             //String problemName = "test5BigProject.csv";
             //String problemName = "test6BigSample.csv";
-            //String problemName = "VERYbigsample.csv";
+            String problemName = "VERYbigsample.csv";
 
             String path = Directory.GetCurrentDirectory() + "..\\..\\..\\..\\input_files\\" + problemName;
             double methodCoefficient = 0;

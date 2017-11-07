@@ -18,10 +18,5 @@ namespace AC_project
             _expert = expert;
             _weight = weight;
         }
-
-        public string EdgeDescription()
-        {
-            return string.Format("Edge: project index: {0}, expert index {1}, feature {2}", _project, _expert, _weight);
-        }
     }
 }
