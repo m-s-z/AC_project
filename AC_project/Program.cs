@@ -19,7 +19,7 @@ namespace AC_project
             String problemName = "TestKinga.txt";
 
             //String problemName = "test1.csv";
-            String problemName = "test2.csv";
+            //String problemName = "test2.csv";
             //String problemName = "INPUT-3.csv";
             //String problemName = "test3littleExperts.csv";
             //String problemName = "test4ManyExperts.csv";
